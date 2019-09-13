@@ -40,36 +40,38 @@ public class Kora {
 
         for (int i = 0; i < args.length; i++) {
             try {
-                switch (args[i]) {
-                    case "-cldir"://Card List Directory
-                    case "-cardlistdirectory"://Card List Directory
-                        i++;
-                        cardListDir = args[i];
-                        break;
-                    case "-rdis": //Recommend Disable
-                    case "-recommenddisable": //Recommend Disable
-                        recommendDisable = true;
-                        break;
-                    case "-h":
-                    case "-help":
-                    case "-?":
-                        System.out.println(optionHelp);
-                        System.exit(0);
-                    default:
-                        if (args[i].startsWith("-")) {
+                if (args[i].startsWith("-")) {
+                    args[i] = args[i].toLowerCase();
+                    switch (args[i]) {
+                        case "-cldir"://Card List Directory
+                        case "-cardlistdirectory"://Card List Directory
+                            i++;
+                            cardListDir = args[i];
+                            break;
+                        case "-rdis": //Recommend Disable
+                        case "-recommenddisable": //Recommend Disable
+                            recommendDisable = true;
+                            break;
+                        case "-h":
+                        case "-help":
+                        case "-?":
+                            System.out.println(optionHelp);
+                            System.exit(0);
+                        default:
                             System.err.printf("unknown option \"%s\" found\n", args[i]);
                             System.err.println(optionHelp);
                             System.exit(-1);
-                        }
-                        //オプションの様でないなら、
-                        collageString = args[i];
+                    }
+                } else {
+                    //オプションの様でないなら、
+                    collageString = args[i];
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.err.printf("\"%s\" needs some data", args[i - 1]);
                 System.exit(-1);
             }
         }
-        if(collageString == null) {
+        if (collageString == null) {
             System.err.println("collage string is not put");
             System.err.println(optionHelp);
             System.exit(-1);
